@@ -6,4 +6,4 @@
   - **Rely completely on requests instead of Tweepy.**
   - **Fork project and replace Markov chain with Machine Learning.**
   ## Example project:
-    https://twitter.com/AmloSimulador
+    [Amlo Simulador](https://twitter.com/AmloSimulador)
