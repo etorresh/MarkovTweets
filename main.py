@@ -56,4 +56,4 @@ while(True):
 		
 	else:
 		print("Warning: no new tweets detected. " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-	time.sleep(30)
+	time.sleep(10)
