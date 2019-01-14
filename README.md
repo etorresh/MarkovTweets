@@ -10,4 +10,4 @@
   - **Fork project and replace Markov chain with Machine Learning.**
   
   ## Example project:
-    [1]: http://www.twitter.com/AmloSimulador
+     www.twitter.com/AmloSimulador
