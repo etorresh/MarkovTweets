@@ -24,6 +24,8 @@ def build_chain(source, chain = {}):
 		index += 1
 	return chain
 
+# Remove spaces from last word.
+# Add starting sentence to markov chain.
 def create_message(chain, max = 40, starting_sentence = ""):
 	if(starting_sentence != ""):
 		starting_sentence = string_control.less_spaces(starting_sentence)
@@ -32,7 +34,7 @@ def create_message(chain, max = 40, starting_sentence = ""):
 		word1 = starting_sentence.split(" ")[-1]
 		message = starting_sentence
 		if(word1 not in chain):
-			print("Warning: Choosing random starting word.")
+			print("StringControl: Choosing random starting word.")
 			word1 = random.choice(list(chain.keys()))
 	else:
 		word1 = random.choice(list(chain.keys()))
@@ -41,7 +43,7 @@ def create_message(chain, max = 40, starting_sentence = ""):
 	while(len(message.split(" ")) < max):
 		# Check if word limit is reached and if it's true end while loop.
 		if(word1 not in chain):
-			print("Warning: Word limit reached.")
+			print("StringControl: Word limit reached.")
 			return message
 		
 		word2 = random.choice(chain[word1])
@@ -52,9 +54,9 @@ def create_message(chain, max = 40, starting_sentence = ""):
 	message = string_control.only_periods(message)
 	
 	if(str.isalpha(last_word) == False and last_word.isdigit == False):
-		print("Warning: Removing nonalpha last character and replacing it with a period.")
+		print("StringControl: Removing nonalpha last character and replacing it with a period.")
 		message = message[:-1] + "."
 	elif(last_word != "."):
-		print("Warning: Adding a period.")
+		print("StringControl: Adding a period.")
 		message = message + "."
 	return message
