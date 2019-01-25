@@ -45,7 +45,7 @@ auth = OAuth1(api_public, api_private, token_public, token_private)
 
 chain = markov_chain.build_chain(markov_chain.read_file("source.txt"))
 
-with open('latest_tweet.txt', 'r') as file:
+with open('last_tweet_id.txt', 'r') as file:
 		 old_tweet_id = file.read().replace('\n', '')
 
 def automatic_sentence():
@@ -76,7 +76,7 @@ while(True):
 				break
 			
 		old_tweet_id = str(r.json()[0]["id"])
-		with open('latest_tweet.txt', 'w') as file:
+		with open('last_tweet_id.txt', 'w') as file:
 			file.write(old_tweet_id)
 		
 	else:

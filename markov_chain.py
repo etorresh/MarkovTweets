@@ -66,4 +66,4 @@ def create_message(chain, max = 40, starting_sentence = ""):
 		print("StringControl: Adding a period.")
 		message = message + "."
 	return message
-# PyCharm & Git Test
+# PyCharm & Git Test 2
