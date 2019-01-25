@@ -7,11 +7,13 @@
 import random
 import string_control
 
+
 def read_file(filename):
 	with open(filename, "r", encoding = "utf-8") as file:
 		content = file.read().replace("\n", " ")
 	return content
-	
+
+
 def build_chain(source, chain = {}):
 	words = source.split(" ")
 	index = 1
@@ -23,6 +25,7 @@ def build_chain(source, chain = {}):
 			chain[key] = [word]
 		index += 1
 	return chain
+
 
 # Remove spaces from last word.
 # Add starting sentence to markov chain.
@@ -63,5 +66,4 @@ def create_message(chain, max = 40, starting_sentence = ""):
 		print("StringControl: Adding a period.")
 		message = message + "."
 	return message
-	
-	
+# PyCharm & Git Test
