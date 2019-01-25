@@ -10,6 +10,8 @@ import json
 import tweepy
 import time
 import datetime
+import threading
+
 
 # API credentials
 api_public = ""
@@ -19,7 +21,9 @@ token_private = ""
 
 # Settings
 bot_username = ""
-tweet_max_length = 40
+tweet_max_words = 25
+twitter_char_limit = 280
+random_message_timer = 12 * 60 * 60
 
 
 t_auth = tweepy.OAuthHandler(api_public, api_private)
@@ -29,10 +33,31 @@ api = tweepy.API(t_auth)
 mentions_url = "https://api.twitter.com/1.1/statuses/mentions_timeline.json"
 auth = OAuth1(api_public, api_private, token_public, token_private)
 
+# Find trending hashtags
+# geo_id = "116545"
+# trending_url = "https://api.twitter.com/1.1/trends/place.json?id=" + geo_id
+#trending_hashtags = requests.get(trending_url, auth=auth)
+#hashtags_list = []
+#for amount_of_tags in range(2):
+#	hashtags_list.append((trending_hashtags.json()[0]["trends"][amount_of_tags]["name"]))
+#hashtags = (" ".join(hashtags_list))
+
+
 chain = markov_chain.build_chain(markov_chain.read_file("source.txt"))
 
 with open('latest_tweet.txt', 'r') as file:
 		 old_tweet_id = file.read().replace('\n', '')
+
+def automatic_sentence():
+	while(True):
+		random_message = markov_chain.create_message(chain, max = tweet_max_words)
+		random_message = string_control.super_detox(random_message)
+		random_message = string_control.limit_check(random_message, twitter_char_limit)
+		api.update_status(random_message)
+		
+		time.sleep(random_message_timer)
+
+threading.Thread(target=automatic_sentence).start()		 
 
 while(True):
 	r = requests.get(mentions_url, auth=auth)
@@ -43,9 +68,9 @@ while(True):
 		for response in r.json():
 			if(old_tweet_id != str(response["id"])):
 				input_starting_sentence = response["text"].replace(bot_username, "")
-				message = markov_chain.create_message(chain, max = tweet_max_length, starting_sentence = input_starting_sentence)
-				clean_message = string_control.super_detox(message)
-				final_message = clean_message
+				message = markov_chain.create_message(chain, max = tweet_max_words, starting_sentence = input_starting_sentence)
+				final_message = string_control.super_detox(message)
+				final_message = string_control.limit_check(final_message, twitter_char_limit, " @" + response["user"]["screen_name"])
 				api.update_status(final_message, in_reply_to_status_id = response["id"])
 			else:
 				break
@@ -56,4 +81,4 @@ while(True):
 		
 	else:
 		print("Warning: no new tweets detected. " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-	time.sleep(10)
+	time.sleep(12)

@@ -31,6 +31,9 @@ def create_message(chain, max = 40, starting_sentence = ""):
 		starting_sentence = string_control.less_spaces(starting_sentence)
 		starting_sentence = starting_sentence.strip()
 		starting_sentence = string_control.remove_non_alpha_endings(starting_sentence)
+		if(starting_sentence[-1] == "?"):
+			starting_sentence = string_control.add_random_words(starting_sentence, word_list = [" Si,", " No,"])
+		
 		word1 = starting_sentence.split(" ")[-1]
 		message = starting_sentence
 		if(word1 not in chain):
@@ -60,3 +63,5 @@ def create_message(chain, max = 40, starting_sentence = ""):
 		print("StringControl: Adding a period.")
 		message = message + "."
 	return message
+	
+	
