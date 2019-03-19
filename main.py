@@ -49,9 +49,9 @@ with open('last_tweet_id.txt', 'r') as file:
 
 
 def automatic_sentence():
-    while(True):
-        random_message = markov_chain.create_message(chain, max_length= tweet_max_words)
-        random_message = string_control.super_detox(random_message)
+    while True:
+        random_message = markov_chain.create_message(chain, max_length=tweet_max_words)
+        random_message = string_control.clean_blank_space(random_message)
         random_message = string_control.limit_check(random_message, twitter_char_limit)
         api.update_status(random_message)
 
@@ -70,10 +70,10 @@ while True:
         for response in r.json():
             if old_tweet_id != str(response["id"]):
                 input_starting_sentence = response["text"].replace(bot_username, "")
-                message = markov_chain.create_message(chain, max_length= tweet_max_words, starting_sentence = input_starting_sentence)
-                final_message = string_control.super_detox(message)
+                message = markov_chain.create_message(chain, max_length=tweet_max_words, starting_sentence=input_starting_sentence)
+                final_message = string_control.clean_blank_space(message)
                 final_message = string_control.limit_check(final_message, twitter_char_limit, " @" + response["user"]["screen_name"])
-                api.update_status(final_message, in_reply_to_status_id = response["id"])
+                api.update_status(final_message, in_reply_to_status_id=response["id"])
             else:
                 break
 

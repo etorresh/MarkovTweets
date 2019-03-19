@@ -31,11 +31,10 @@ def build_chain(source, chain={}):
 # Add starting sentence to markov chain.
 def create_message(chain, max_length=40, starting_sentence=""):
     if starting_sentence != "":
-        starting_sentence = string_control.less_spaces(starting_sentence)
+        starting_sentence = string_control.clean_blank_space(starting_sentence)
         starting_sentence = starting_sentence.strip()
-        starting_sentence = string_control.remove_non_alpha_endings(starting_sentence)
         if starting_sentence[-1] == "?":
-            starting_sentence = string_control.add_random_words(starting_sentence, word_list = [" Si,", " No,"])
+            starting_sentence = starting_sentence + random.choice([" Si,", " No,"])
 
         word1 = starting_sentence.split(" ")[-1]
         message = starting_sentence
@@ -57,7 +56,7 @@ def create_message(chain, max_length=40, starting_sentence=""):
         message += " " + word2
         last_word = message[len(message) - 1]
 
-    message = string_control.only_periods(message)
+    message = string_control.remove_non_alpha(message)
 
     if str.isalpha(last_word) == False and last_word.isdigit == False:
         print("StringControl: Removing nonalpha last character and replacing it with a period.")
