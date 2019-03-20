@@ -32,6 +32,7 @@ api = tweepy.API(t_auth)
 mentions_url = "https://api.twitter.com/1.1/statuses/mentions_timeline.json"
 auth = OAuth1(api_public, api_private, token_public, token_private)
 
+# Add random hashtag usage.
 # Find trending hashtags
 # geo_id = "116545"
 # trending_url = "https://api.twitter.com/1.1/trends/place.json?id=" + geo_id
