@@ -30,7 +30,7 @@ def remove_non_alpha(string_input):
     return "".join(clean_list)
 
 
-# Removes last words from string until the character limit is reached. Can add extra_message at the end.
+# Removes last words from string until the character limit is reached. Adds priority message at the end of the string.
 def limit_check(string_input, char_limit, extra_message =""):
     if len(string_input) > char_limit:
         string_input = string_input.split()
