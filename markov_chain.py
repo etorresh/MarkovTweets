@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# Markov chain customized for Twitter bot.
-# Made by MadreNodriza. https://github.com/MadreNodriza 
-
-
 import random
 import string_control
 

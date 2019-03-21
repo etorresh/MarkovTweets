@@ -1,15 +1,16 @@
-# Main pipeline for Twitter Markov bot.
-# Made by MadreNodriza. https://github.com/MadreNodriza
-
-
+# local libs
 import markov_chain
 import string_control
-import requests
-from requests_oauthlib import OAuth1
-import tweepy
-import time
-import datetime
+import twitter_handler
+
+# general libs
+from time import sleep
+from datetime import datetime
 import threading
+
+# third_party
+from requests_oauthlib import OAuth1
+import requests
 
 
 # API credentials
@@ -24,10 +25,7 @@ tweet_max_words = 25
 twitter_char_limit = 280
 random_message_timer = 12 * 60 * 60
 
-
-t_auth = tweepy.OAuthHandler(api_public, api_private)
-t_auth.set_access_token(token_public, token_private)
-api = tweepy.API(t_auth)
+api = twitter_handler.TwitterHandler(api_public, api_private, token_public, token_private)
 
 mentions_url = "https://api.twitter.com/1.1/statuses/mentions_timeline.json"
 auth = OAuth1(api_public, api_private, token_public, token_private)
@@ -56,7 +54,7 @@ def automatic_sentence():
         random_message = string_control.limit_check(random_message, twitter_char_limit)
         api.update_status(random_message)
 
-        time.sleep(random_message_timer)
+        sleep(random_message_timer)
 
 
 threading.Thread(target=automatic_sentence).start()
@@ -65,9 +63,9 @@ threading.Thread(target=automatic_sentence).start()
 while True:
     r = requests.get(mentions_url, auth=auth)
     if r.status_code == 429:
-        print("Warning: API limit reached." + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        print("Warning: API limit reached." + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     elif str(r.json()[0]["id"]) !=  old_tweet_id:
-        print("Warning: new Tweet(s) detected. " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        print("Warning: new Tweet(s) detected. " + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
         for response in r.json():
             if old_tweet_id != str(response["id"]):
                 input_starting_sentence = response["text"].replace(bot_username, "")
@@ -83,5 +81,5 @@ while True:
             file.write(old_tweet_id)
 
     else:
-        print("Warning: no new tweets detected. " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-    time.sleep(12)
+        print("Warning: no new tweets detected. " + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    sleep(12)
