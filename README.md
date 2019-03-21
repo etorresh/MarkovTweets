@@ -5,7 +5,9 @@
   ## To-do list:
   - ~~**Smarter responses:** replace how responses are handled so intead of the bot responding to the latest tweet every 10 seconds, it responds to every tweet that happend in that 10 second interval.~~
   
-  - **Rely completely on requests instead of Tweepy.**
+  - ~~**Rely completely on requests instead of Tweepy.**~~
+  
+  - **Add feature that randomly uses trending hashtags.**
   
   - **Fork project and replace Markov chain with Machine Learning.**
   
