@@ -1,7 +1,3 @@
-# String manipulation for AMLO Simulator.
-# Made by MadreNodriza. https://github.com/MadreNodriza
-
-
 # Removes unnecessary blank spaces. (Blank space next to blank space, blank space behind periods)
 def clean_blank_space(string_input):
     base = 0
