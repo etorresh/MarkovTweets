@@ -23,7 +23,7 @@ def remove_non_alpha(string_input):
     for _ in clean_list:
         if clean_list[-1].isalpha() is False and clean_list[-1] != "." and clean_list[-1] != "?":
             del clean_list[-1]
-    return "".join(clean_list)
+    return " ".join(clean_list)
 
 
 # Removes last words from string until the character limit is reached. Adds priority message at the end of the string.
