@@ -30,7 +30,7 @@ class TwitterHandler:
         trends_list = []
         for y in range(amount_of_trends):
             trends_list.append((trends.json()[0]["trends"][y]["name"]))
-        return " ".join(trends_list)
+        return trends_list
 
     # 0 = Topic, 1 = Hashtag
     def trending_type(self, geo_id, topic_or_hashtag, amount_of_trends=50):
@@ -40,12 +40,12 @@ class TwitterHandler:
             topic_or_hashtag = 1
         else:
             logging.error("Set topic_or_hashtag to 'Topic' or 'Hashtag' to search for an specific trend type.")
-        trends = self.trending(geo_id, amount_of_trends).split()
+        trends = self.trending(geo_id, amount_of_trends)
         trending_list = []
         for trend in trends:
             if trend.__contains__("#") == topic_or_hashtag:
                 trending_list.append(trend)
-        return " ".join(trending_list)
+        return trending_list
 
     def get_mentions(self):
         return requests.get(mentions_url, auth=self.auth)

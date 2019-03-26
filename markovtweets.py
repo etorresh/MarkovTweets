@@ -1,9 +1,11 @@
 from time import sleep
 from datetime import datetime
+import threading
+import random
+import logging
 
 import markov_chain
 import string_control
-import threading
 
 
 class MarkovTweets:
@@ -15,10 +17,18 @@ class MarkovTweets:
         if self.settings["random_message"]:
             def automatic_sentence():
                 while True:
+                    if self.settings["random_hashtag"]:
+                        if random.random() <= self.settings["random_hashtag_percentage"]:
+                            hashtag = random.choice(self.api.trending_type("116545", "Hashtag"))
+                            logging.warning("Random hashtag: " + hashtag)
+                        else:
+                            hashtag = ""
+
                     random_message = markov_chain.create_message(self.chain, max_length=self.settings["tweet_max_words"])
                     random_message = string_control.clean_blank_space(random_message)
-                    random_message = string_control.limit_check(random_message, self.settings["twitter_char_limit"])
-                    api.update_status(random_message)
+                    random_message = string_control.limit_check(random_message, self.settings["twitter_char_limit"], hashtag)
+                    logging.warning("Posting random tweet.")
+                    #api.update_status(random_message)
 
                     sleep(self.settings["random_message_timer"])
 
@@ -30,9 +40,9 @@ class MarkovTweets:
         while True:
             r = self.api.get_mentions()
             if r.status_code == 429:
-                print("Warning: API limit reached." + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+                logging.warning("API limit reached." + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
             elif str(r.json()[0]["id"]) != old_tweet_id:
-                print("Warning: new Tweet(s) detected. " + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+                logging.warning("New Tweet(s) detected. " + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
                 for response in r.json():
                     if old_tweet_id != str(response["id"]):
                         input_starting_sentence = response["text"].replace(self.settings["bot_username"], "")
@@ -48,5 +58,5 @@ class MarkovTweets:
                     file.write(old_tweet_id)
 
             else:
-                print("Warning: no new tweets detected. " + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+                logging.warning("No new tweets detected. " + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
             sleep(12)

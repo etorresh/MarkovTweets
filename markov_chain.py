@@ -2,6 +2,7 @@
 
 import random
 import string_control
+import logging
 
 
 def read_file(filename):
@@ -35,7 +36,7 @@ def create_message(chain, max_length=40, starting_sentence=""):
         word1 = starting_sentence.split(" ")[-1]
         message = starting_sentence
         if word1 not in chain:
-            print("StringControl: Choosing random starting word.")
+            logging.warning("StringControl: Choosing random starting word.")
             word1 = random.choice(list(chain.keys()))
     else:
         word1 = random.choice(list(chain.keys()))
@@ -44,7 +45,7 @@ def create_message(chain, max_length=40, starting_sentence=""):
     while len(message.split(" ")) < max_length:
         # Check if word limit is reached and if it's true end while loop.
         if word1 not in chain:
-            print("StringControl: Word limit reached.")
+            logging.warning("StringControl: Word limit reached.")
             return message
 
         word2 = random.choice(chain[word1])
@@ -54,10 +55,11 @@ def create_message(chain, max_length=40, starting_sentence=""):
 
     message = string_control.remove_non_alpha(message)
 
+
     if str.isalpha(last_word) == False and last_word.isdigit == False:
-        print("StringControl: Removing nonalpha last character and replacing it with a period.")
+        logging.warning("StringControl: Removing nonalpha last character and replacing it with a period.")
         message = message[:-1] + "."
     elif last_word != ".":
-        print("StringControl: Adding a period.")
+        logging.warning("StringControl: Adding a period.")
         message = message + "."
     return message
