@@ -39,7 +39,7 @@ class MarkovTweets:
                         message = markov_chain.create_message(self.chain, max_length=self.settings["tweet_max_words"], starting_sentence=input_starting_sentence)
                         final_message = string_control.clean_blank_space(message)
                         final_message = string_control.limit_check(final_message, self.settings["twitter_char_limit"], " @" + response["user"]["screen_name"])
-                        api.update_status(final_message, in_reply_to_status_id=response["id"])
+                        self.api.update_status(final_message, in_reply_to_status_id=response["id"])
                     else:
                         break
 
