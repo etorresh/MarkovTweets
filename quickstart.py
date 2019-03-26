@@ -8,40 +8,22 @@ from time import sleep
 from datetime import datetime
 import threading
 
-# third_party
-from requests_oauthlib import OAuth1
-import requests
-
-
 # API credentials
 api_public = ""
 api_private = ""
 token_public = ""
 token_private = ""
+bot_username = ""
 
 # Settings
-bot_username = ""
+markov_chain_source = "example_source.txt"
 tweet_max_words = 25
-twitter_char_limit = 280
 random_message_timer = 12 * 60 * 60
+twitter_char_limit = 280
 
 api = twitter_handler.TwitterHandler(api_public, api_private, token_public, token_private)
 
-mentions_url = "https://api.twitter.com/1.1/statuses/mentions_timeline.json"
-auth = OAuth1(api_public, api_private, token_public, token_private)
-
-# Add random hashtag usage.
-# Find trending hashtags
-# geo_id = "116545"
-# trending_url = "https://api.twitter.com/1.1/trends/place.json?id=" + geo_id
-# trending_hashtags = requests.get(trending_url, auth=auth)
-# hashtags_list = []
-# for amount_of_tags in range(2):
-#   hashtags_list.append((trending_hashtags.json()[0]["trends"][amount_of_tags]["name"]))
-#   hashtags = (" ".join(hashtags_list))
-
-
-chain = markov_chain.build_chain(markov_chain.read_file("source.txt"))
+chain = markov_chain.build_chain(markov_chain.read_file(markov_chain_source))
 
 with open('last_tweet_id.txt', 'r') as file:
     old_tweet_id = file.read().replace('\n', '')
@@ -61,7 +43,7 @@ threading.Thread(target=automatic_sentence).start()
 
 
 while True:
-    r = requests.get(mentions_url, auth=auth)
+    r = api.get_mentions()
     if r.status_code == 429:
         print("Warning: API limit reached." + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     elif str(r.json()[0]["id"]) !=  old_tweet_id:
