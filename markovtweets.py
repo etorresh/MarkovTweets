@@ -14,27 +14,27 @@ class MarkovTweets:
         self.settings = settings
         self.chain = markov_chain.build_chain(markov_chain.read_file(settings["markov_chain_source"]))
 
-        if self.settings["random_message"]:
-            def automatic_sentence():
-                while True:
-                    if self.settings["random_hashtag"]:
-                        if random.random() <= self.settings["random_hashtag_percentage"]:
-                            hashtag = random.choice(self.api.trending_type("116545", "Hashtag"))
-                            logging.warning("Random hashtag: " + hashtag)
-                        else:
-                            hashtag = ""
+    def automatic_sentence(self):
+        while True:
+            if self.settings["random_hashtag"]:
+                if random.random() <= self.settings["random_hashtag_percentage"]:
+                    hashtag = random.choice(self.api.trending_type("116545", "Hashtag"))
+                    logging.warning("Random hashtag: " + hashtag)
+                else:
+                    hashtag = ""
 
-                    random_message = markov_chain.create_message(self.chain, max_length=self.settings["tweet_max_words"])
-                    random_message = string_control.clean_blank_space(random_message)
-                    random_message = string_control.limit_check(random_message, self.settings["twitter_char_limit"], hashtag)
-                    logging.warning("Posting random tweet.")
-                    #api.update_status(random_message)
+            random_message = markov_chain.create_message(self.chain, max_length=self.settings["tweet_max_words"])
+            random_message = string_control.clean_blank_space(random_message)
+            random_message = string_control.limit_check(random_message, self.settings["twitter_char_limit"], hashtag)
+            logging.warning("Posting random tweet.")
+            self.api.update_status(random_message)
 
-                    sleep(self.settings["random_message_timer"])
-
-            threading.Thread(target=automatic_sentence).start()
+            sleep(self.settings["random_message_timer"])
 
     def start(self):
+        if self.settings["random_message"]:
+            threading.Thread(target=self.automatic_sentence).start()
+
         with open('last_tweet_id.txt', 'r') as file:
             old_tweet_id = file.read().replace('\n', '')
         while True:

@@ -2,14 +2,12 @@
 ## Description:
   A Python twitter bot that uses a markov chain based sentence generator to fill in tweets.
   
-  ## To-do list:
-  - ~~**Smarter responses:** replace how responses are handled so intead of the bot responding to the latest tweet every 10 seconds, it responds to every tweet that happend in that 10 second interval.~~
+  ## Feature list:
+  - **Tag reply:** replies to tweets that mention the bot.
   
-  - ~~**Rely completely on requests instead of Tweepy.**~~
+  - **Automatic tweets:** randomly tweets sentences. Time interval can be adjusted at settings.
   
-  - ~~**Add feature that randomly uses trending hashtags.**~~
-  
-  - **Fork project and replace Markov chain with Machine Learning.**
+  - **Current trends:** trending hashtags can be added to automatic tweets. The probability of using a hashtag can be adjusted at settings.
   
   ## Example project:
   [Amlo Simulador](http://www.twitter.com/AmloSimulador)
