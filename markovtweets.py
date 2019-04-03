@@ -19,14 +19,12 @@ class MarkovTweets:
             if self.settings["random_hashtag"]:
                 if random.random() <= self.settings["random_hashtag_percentage"]:
                     hashtag = random.choice(self.api.trending_type("116545", "Hashtag"))
-                    logging.warning("Random hashtag: " + hashtag)
                 else:
                     hashtag = ""
 
             random_message = markov_chain.create_message(self.chain, max_length=self.settings["tweet_max_words"])
             random_message = string_control.clean_blank_space(random_message)
             random_message = string_control.limit_check(random_message, self.settings["twitter_char_limit"], hashtag)
-            logging.warning("Posting random tweet.")
             self.api.update_status(random_message)
 
             sleep(self.settings["random_message_timer"])
@@ -42,7 +40,6 @@ class MarkovTweets:
             if r.status_code == 429:
                 logging.warning("API limit reached." + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
             elif str(r.json()[0]["id"]) != old_tweet_id:
-                logging.warning("New Tweet(s) detected. " + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
                 for response in r.json():
                     if old_tweet_id != str(response["id"]):
                         input_starting_sentence = response["text"].replace(self.settings["bot_username"], "")
@@ -56,7 +53,4 @@ class MarkovTweets:
                 old_tweet_id = str(r.json()[0]["id"])
                 with open('last_tweet_id.txt', 'w') as file:
                     file.write(old_tweet_id)
-
-            else:
-                logging.warning("No new tweets detected. " + datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
             sleep(12)
