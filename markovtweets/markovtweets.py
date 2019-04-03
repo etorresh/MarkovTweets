@@ -4,8 +4,8 @@ import threading
 import random
 import logging
 
-import markov_chain
-import string_control
+from . import markov_chain
+from . import string_control
 
 
 class MarkovTweets:

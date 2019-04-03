@@ -1,5 +1,5 @@
-import twitter_handler
-import markovtweets
+from . import twitter_handler
+from . import markovtweets
 
 # API credentials
 api_public = ""

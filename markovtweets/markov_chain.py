@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import random
-import string_control
+
+from . import string_control
 
 
 def read_file(filename):
