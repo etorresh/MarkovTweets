@@ -3,6 +3,7 @@ from datetime import datetime
 import threading
 import random
 import logging
+import os
 
 from . import markov_chain
 from . import string_control
@@ -33,8 +34,13 @@ class MarkovTweets:
         if self.settings["random_message"]:
             threading.Thread(target=self.automatic_sentence).start()
 
-        with open('last_tweet_id.txt', 'r') as file:
-            old_tweet_id = file.read().replace('\n', '')
+        if os.path.exists("last_tweet_id.txt"):
+            with open('last_tweet_id.txt', 'r+') as file:
+                old_tweet_id = file.read().replace('\n', '')
+        else:
+            open('last_tweet_id.txt', 'w').close()
+            old_tweet_id = None
+
         while True:
             r = self.api.get_mentions()
             if r.status_code == 429:
