@@ -4,7 +4,7 @@
   <h1 align="center">MarkovTweets</h1>
   <p align="center">A Python twitter bot that uses a markov chain based sentence generator to fill in tweets.<p>
   <p align="center">
-      <a href="https://github.com/madrenodriza/MarkovTweets/blob/master/LICENSE.txt">
+      <a href="https://github.com/madrenodriza/MarkovTweets/blob/master/LICENSE.txt"/>
       <img src="https://img.shields.io/github/license/madrenodriza/markovtweets.svg" />
     </a>
       <a href="https://www.python.org/">
