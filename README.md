@@ -17,7 +17,7 @@
   
   - **Automatic tweets:** randomly tweets sentences. Time interval can be adjusted at settings.
   
-  - **Current trends:** trending hashtags can be added to automatic tweets. The probability of using a hashtag can be adjusted at settings.
+  - **Current trends:** trending hashtags can be added to tweets. The probability of using a hashtag can be adjusted at settings.
   
 ## Installation:
 ```
