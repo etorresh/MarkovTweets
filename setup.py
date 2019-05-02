@@ -2,13 +2,13 @@ from distutils.core import setup
 setup(
   name = 'MarkovTweets',
   packages = ['MarkovTweets'],
-  version = '1.0',
+  version = '1.1',
   license='MIT',
   description = 'A Python twitter bot that uses a markov chain based sentence generator to fill in tweets.',
   author = 'MadreNodriza',
-  author_email = 'enodriza@gmail.com',
+  author_email = 'contact@madrenodriza.me',
   url = 'https://github.com/madrenodriza',
-  download_url = 'https://github.com/madrenodriza/MarkovTweets/archive/v1.0.tar.gz',
+  download_url = 'https://github.com/madrenodriza/MarkovTweets/archive/v1.1.tar.gz',
   keywords = ['Twitter', 'MarkovChain', 'Bot'],
   install_requires=[
           'certifi',
