@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://en.wikipedia.org/wiki/Andrey_Markov">
-  <img src="https://imgur.com/download/4DQ9MtH" width="300">
+  <img src="https://i.imgur.com/S9I6xnN.png" width="300">
   </a>
   <h1 align="center">MarkovTweets</h1>
   <p align="center">A Python twitter bot that uses a markov chain based sentence generator to fill in tweets.<p>
