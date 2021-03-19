@@ -32,7 +32,6 @@ class TwitterHandler:
             trends_list.append((trends.json()[0]["trends"][y]["name"]))
         return trends_list
 
-    # 0 = Topic, 1 = Hashtag
     def trending_type(self, geo_id, topic_or_hashtag, amount_of_trends=50):
         if topic_or_hashtag == "Topic":
             topic_or_hashtag = 0
