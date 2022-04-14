@@ -12,6 +12,7 @@
     	<img src="https://img.shields.io/badge/built%20with-Python3-red.svg" />
     </a>
   
+## DEPRECATED: No longer maintained.
 ## Feature list:
   - **Tag reply:** replies to tweets that mention the bot.
   
