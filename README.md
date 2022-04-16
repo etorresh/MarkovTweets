@@ -5,8 +5,8 @@
   <h1 align="center">MarkovTweets</h1>
   <p align="center">A Python twitter bot that uses a markov chain based sentence generator to fill in tweets.<p>
   <p align="center">
-      <a href="https://github.com/madrenodriza/MarkovTweets/blob/master/LICENSE.txt"/>
-      <img src="https://img.shields.io/github/license/madrenodriza/markovtweets.svg" />
+      <a href="https://github.com/etorresh/MarkovTweets/blob/master/LICENSE.txt"/>
+      <img src="https://img.shields.io/github/license/etorresh/markovtweets.svg" />
     </a>
       <a href="https://www.python.org/">
     	<img src="https://img.shields.io/badge/built%20with-Python3-red.svg" />
@@ -26,7 +26,7 @@ pip install MarkovTweets
 ```
 **That's it! ✈**
 
-Download the **[quickstart](https://cdn.jsdelivr.net/gh/madrenodriza/markovtweets/example/quickstart.py)** script to your machine.
+Download the **[quickstart](https://cdn.jsdelivr.net/gh/etorresh/markovtweets/example/quickstart.py)** script to your machine.
 
 You can put your app account details by passing the API credential, like so:
 ```
@@ -36,14 +36,14 @@ token_public = "ACCESS_TOKEN"
 token_private = "ACESS_TOKEN_SECRET"
 ```
 
-Set your bot username the same as your twitter username and reference the markov chain source. Here's a **[markov chain source example](https://github.com/madrenodriza/MarkovTweets/blob/master/example/example_source.txt)**.
+Set your bot username the same as your twitter username and reference the markov chain source. Here's a **[markov chain source example](https://github.com/etorresh/MarkovTweets/blob/master/example/example_source.txt)**.
 ```
 settings = {
     "markov_chain_source": "example_source.txt",
     "bot_username": "TWITTER_USERNAME",
 }
 ```
-To run MarkovTweets, you'll need to run the **[quickstart](https://cdn.jsdelivr.net/gh/madrenodriza/markovtweets/example/quickstart.py)** script you've just downloaded.
+To run MarkovTweets, you'll need to run the **[quickstart](https://cdn.jsdelivr.net/gh/etorresh/markovtweets/example/quickstart.py)** script you've just downloaded.
 ```
 python quickstart.py
 ```
